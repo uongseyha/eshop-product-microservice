@@ -1,5 +1,5 @@
 ﻿using AutoMapper;
-using eCommerce.ProductsService.BusinessLogicLayer.RabbitMQ;
+using eShop.ProductsService.BusinessLogicLayer.RabbitMQ;
 using eShop.BusinessLogicLayer.DTO;
 using eShop.BusinessLogicLayer.ServiceContracts;
 using eShop.DataAccessLayer.Entities;

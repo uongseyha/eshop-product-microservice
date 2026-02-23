@@ -1,4 +1,4 @@
-﻿using eCommerce.ProductsService.BusinessLogicLayer.RabbitMQ;
+﻿using eShop.ProductsService.BusinessLogicLayer.RabbitMQ;
 using eShop.BusinessLogicLayer.Mappers;
 using eShop.BusinessLogicLayer.ServiceContracts;
 using eShop.BusinessLogicLayer.Validators;

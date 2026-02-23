@@ -1,4 +1,4 @@
-﻿namespace eCommerce.ProductsService.BusinessLogicLayer.RabbitMQ;
+﻿namespace eShop.ProductsService.BusinessLogicLayer.RabbitMQ;
 
 public interface IRabbitMQPublisher
 {
