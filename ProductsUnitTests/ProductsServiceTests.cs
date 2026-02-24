@@ -4,6 +4,7 @@ using eShop.BusinessLogicLayer.DTO;
 using eShop.DataAccessLayer.Entities;
 using eShop.DataAccessLayer.RepositoryContracts;
 using eShop.ProductsService.BusinessLogicLayer.RabbitMQ;
+using eShop.ProductsService.BusinessLogicLayer.ServiceBus;
 using FluentAssertions;
 using FluentValidation;
 using FluentValidation.Results;
@@ -19,7 +20,8 @@ public class ProductsServiceTests
   private readonly Mock<IValidator<ProductAddRequest>> _productAddRequestValidatorMock;
   private readonly Mock<IValidator<ProductUpdateRequest>> _productUpdateRequestValidatorMock;
   private readonly Mock<IRabbitMQPublisher> _rabbitMQPublisherMock;
-  private readonly eShop.BusinessLogicLayer.Services.ProductsService _productsService;
+  private readonly Mock<IServiceBusPublisher> _serviceBusPublisherMock;
+  private readonly BusinessLogicLayer.Services.ProductsService _productsService;
   private readonly Fixture _fixture;
 
   public ProductsServiceTests()
@@ -36,7 +38,8 @@ public class ProductsServiceTests
         _productUpdateRequestValidatorMock.Object,
         _mapperMock.Object,
         _productsRepositoryMock.Object,
-        _rabbitMQPublisherMock.Object);
+        _rabbitMQPublisherMock.Object,
+        _serviceBusPublisherMock.Object);
   }
 
 

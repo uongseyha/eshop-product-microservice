@@ -27,7 +27,7 @@ services:
   environment:
    - POSTGRES_USER=postgres
    - POSTGRES_PASSWORD=admin
-   - POSTGRES_DB=eCommerceUsers
+   - POSTGRES_DB=eShopUsers
   ports:
    - "5432:5432"
   volumes:

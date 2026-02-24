@@ -8,6 +8,7 @@ using eShop.ProductsService.BusinessLogicLayer.RabbitMQ;
 using FluentValidation;
 using FluentValidation.Results;
 using System.Linq.Expressions;
+using eShop.ProductsService.BusinessLogicLayer.ServiceBus;
 
 namespace eShop.BusinessLogicLayer.Services;
 
@@ -16,7 +17,8 @@ public class ProductsService(
   , IValidator<ProductUpdateRequest> _productUpdateRequestValidator
   , IMapper _mapper
   , IProductsRepository _productsRepository
-  , IRabbitMQPublisher _rabbitMQPublisher) : IProductsService
+  , IRabbitMQPublisher _rabbitMQPublisher
+  , IServiceBusPublisher _serviceBusPublisher) : IProductsService
 {
   public async Task<ProductResponse?> AddProduct(ProductAddRequest productAddRequest)
   {
@@ -77,7 +79,8 @@ public class ProductsService(
         { "RowCount", 1 }
       };
 
-      _rabbitMQPublisher.Publish(headers, message);
+      await _rabbitMQPublisher.Initialize();
+      await _rabbitMQPublisher.Publish(headers, message);
     }
 
     return isDeleted;
@@ -156,11 +159,13 @@ public class ProductsService(
         { "event", "product.update" },
         { "RowCount", 1 }
       };
-    _rabbitMQPublisher.Publish<Product>(headers, product);
-
+    await _rabbitMQPublisher.Initialize();
+    await _rabbitMQPublisher.Publish<Product>(headers, product);
 
 
     ProductResponse? updatedProductResponse = _mapper.Map<ProductResponse>(updatedProduct);
+
+    await _serviceBusPublisher.Publish(headers, updatedProductResponse);
 
     return updatedProductResponse;
   }

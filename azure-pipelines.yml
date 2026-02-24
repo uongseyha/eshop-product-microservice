@@ -16,7 +16,7 @@ variables:
   - name: imageRepository
     value: 'products-microservice'
   - name: containerRegistry
-    value: 'harshaecommerceregistry.azurecr.io'
+    value: 'eshopcr2k26.azurecr.io'
   - name: dockerfilePath
     value: '$(Build.SourcesDirectory)/ProductsMicroService.API/Dockerfile'
   - name: tag
@@ -26,19 +26,19 @@ variables:
   - name: windowsImageName
     value: 'windows-latest'
   - name: aksClusterName
-    value: 'ecommerce-aks-cluster'
+    value: 'eshop-aks-cluster'
   - name: devAksServiceConnectionName
-    value: 'dev-ecommerce-aks-cluster-dev-1728646864141'
+    value: 'dev-eshop-aks-cluster-dev-1728646864141'
   - name: qaAksServiceConnectionName
-    value: 'qa-ecommerce-aks-cluster-qa-1728646902885'
+    value: 'qa-eshop-aks-cluster-qa-1728646902885'
   - name: uatAksServiceConnectionName
-    value: 'uat-ecommerce-aks-cluster-uat-1728646945489'
+    value: 'uat-eshop-aks-cluster-uat-1728646945489'
   - name: stagingAksServiceConnectionName
-    value: 'staging-ecommerce-aks-cluster-staging-1728646992176'
+    value: 'staging-eshop-aks-cluster-staging-1728646992176'
   - name: prodAksServiceConnectionName
-    value: 'prod-ecommerce-aks-cluster-prod-1728647025576'
+    value: 'prod-eshop-aks-cluster-prod-1728647025576'
   - name: resourceGroupServiceConnectionName
-    value: 'ecommerce-resource-group-connection'
+    value: 'eshop-resource-group-connection'
   - name: keyVaultName
     value: 'products-pipeline-kv'
 

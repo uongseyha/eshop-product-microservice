@@ -1,23 +1,38 @@
-﻿using eShop.ProductsService.BusinessLogicLayer.RabbitMQ;
-using eShop.BusinessLogicLayer.Mappers;
+﻿using eShop.BusinessLogicLayer.Mappers;
 using eShop.BusinessLogicLayer.ServiceContracts;
+using Microsoft.Extensions.DependencyInjection;
 using eShop.BusinessLogicLayer.Validators;
 using FluentValidation;
-using Microsoft.Extensions.DependencyInjection;
+using eShop.ProductsService.BusinessLogicLayer.RabbitMQ;
+using Microsoft.Extensions.Configuration;
+using Azure.Messaging.ServiceBus;
+using eShop.ProductsService.BusinessLogicLayer.ServiceBus;
 
-namespace eShop.ProductsService.BusinessLogicLayer
+
+namespace eShop.ProductsService.BusinessLogicLayer;
+
+public static class DependencyInjection
 {
-  public static class DependencyInjection
+  public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services, IConfiguration configuration)
   {
-    public static IServiceCollection AddBusinessLogicLayer(this IServiceCollection services)
-    {
-      //TO DO: Add Data Access Layer services into the IoC container
+    //TO DO: Add Business Logic Layer services into the IoC container
+    services.AddAutoMapper(typeof(ProductAddRequestToProductMappingProfile).Assembly);
 
-      services.AddAutoMapper(typeof(ProductAddRequestToProductMappingProfile).Assembly);
-      services.AddValidatorsFromAssemblyContaining<ProductAddRequestValidator>(); 
-      services.AddScoped<IProductsService, eShop.BusinessLogicLayer.Services.ProductsService>();
-      services.AddTransient<IRabbitMQPublisher, RabbitMQPublisher>();
-      return services;
-    }
+    services.AddValidatorsFromAssemblyContaining
+      <ProductAddRequestValidator>();
+
+    services.AddScoped<IProductsService, eShop.BusinessLogicLayer.Services.ProductsService>();
+
+    services.AddTransient<IRabbitMQPublisher, RabbitMQPublisher>();
+
+
+    //ServiceBus
+    services.AddSingleton(_ =>
+      new ServiceBusClient(configuration["ServiceBus:eommcerce-servicebus-namespace"]
+    ));
+
+    services.AddSingleton<IServiceBusPublisher, ServiceBusPublisher>();
+
+    return services;
   }
 }

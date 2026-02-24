@@ -1,6 +1,6 @@
 -- Create the database
-CREATE DATABASE IF NOT EXISTS ecommerceproductsdatabase;
-USE ecommerceproductsdatabase;
+CREATE DATABASE IF NOT EXISTS eshopproductsdatabase;
+USE eshopproductsdatabase;
 
 -- Create the products table
 CREATE TABLE IF NOT EXISTS Products (
